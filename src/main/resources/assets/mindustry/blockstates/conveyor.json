@@ -1,0 +1,50 @@
+{
+  "variants": {
+    "shape=n": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-0"
+    },
+    "shape=s": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-0",
+      "y": 180
+    },
+    "shape=e": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-0",
+      "y": 90
+    },
+    "shape=w": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-0",
+      "y": 270
+    },
+
+    "shape=n_w": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-1"
+    },
+    "shape=n_e": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-1mirror"
+    },
+    "shape=s_w": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-1mirror",
+      "y": 180
+    },
+    "shape=s_e": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-1",
+      "y": 180
+    },
+    "shape=w_s": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-1",
+      "y": 270
+    },
+    "shape=w_n": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-1mirror",
+      "y": 270
+    },
+    "shape=e_s": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-1mirror",
+      "y": 90
+    },
+    "shape=e_n": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-1",
+      "y": 90
+    }
+  }
+}

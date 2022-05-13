@@ -1,10 +1,8 @@
 package me.thecode.mindustry.items;
 
 import me.thecode.mindustry.Mindustry;
-import me.thecode.mindustry.blocks.MechanicalDrillBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -18,4 +16,5 @@ public class ModItems {
     }
 
     public static final RegistryObject<BlockItem> MECHANICAL_DRILL = ITEMS.register("mechanical_drill", MechanicalDrillBlockItem::new);
+    public static final RegistryObject<BlockItem> CONVEYOR = ITEMS.register("conveyor", ConveyorBlockItem::new);
 }

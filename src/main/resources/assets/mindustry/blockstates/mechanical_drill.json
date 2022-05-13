@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "mindustry:block/drills/mechanical_drill_copper_north"
+    },
+    "facing=south": {
+      "model": "mindustry:block/drills/mechanical_drill_copper_south"
+    },
+    "facing=east": {
+      "model": "mindustry:block/drills/mechanical_drill_copper_east"
+    },
+    "facing=west": {
+      "model": "mindustry:block/drills/mechanical_drill_copper_west"
+    }
+  }
+}

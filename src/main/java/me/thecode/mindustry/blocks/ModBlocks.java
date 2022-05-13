@@ -15,4 +15,5 @@ public class ModBlocks {
     }
 
     public static final RegistryObject<Block> MECHANICAL_DRILL = BLOCKS.register("mechanical_drill", MechanicalDrillBlock::new);
+    public static final RegistryObject<Block> CONVEYOR = BLOCKS.register("conveyor", ConveyorBlock::new);
 }
