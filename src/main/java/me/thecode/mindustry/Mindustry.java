@@ -1,10 +1,13 @@
 package me.thecode.mindustry;
 
 import com.mojang.logging.LogUtils;
+import me.thecode.mindustry.blocks.ModBlocks;
+import me.thecode.mindustry.items.ModItems;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
@@ -27,17 +30,10 @@ public class Mindustry
 
     public Mindustry()
     {
-        // Register the setup method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        ModBlocks.register(bus);
+        ModItems.register(bus);
 
-        // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
-    }
-
-    private void setup(final FMLCommonSetupEvent event)
-    {
-        // some preinit code
-        LOGGER.info("HELLO FROM PREINIT");
-        LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
     }
 }
