@@ -1,50 +1,117 @@
 {
   "variants": {
-    "shape=n": {
+    "north=output,south=input,east=none,west=none": {
       "model": "mindustry:block/distribution/conveyors/conveyor-0"
     },
-    "shape=s": {
+    "north=input,south=output,east=none,west=none": {
       "model": "mindustry:block/distribution/conveyors/conveyor-0",
       "y": 180
     },
-    "shape=e": {
+    "north=none,south=none,east=input,west=output": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-0",
+      "y": 270
+    },
+    "north=none,south=none,east=output,west=input": {
       "model": "mindustry:block/distribution/conveyors/conveyor-0",
       "y": 90
     },
-    "shape=w": {
-      "model": "mindustry:block/distribution/conveyors/conveyor-0",
+
+
+    "north=output,south=none,east=none,west=input": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-1",
+      "y": 90
+    },
+    "north=input,south=none,east=none,west=output": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-1mirror",
+      "y": 180
+    },
+    "north=output,south=none,east=input,west=none": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-1mirror",
+      "y": -90
+    },
+    "north=input,south=none,east=output,west=none": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-1",
+      "y": 180
+    },
+    "north=none,south=input,east=none,west=output": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-1"
+    },
+    "north=none,south=output,east=none,west=input": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-1mirror",
+      "y": 90
+    },
+    "north=none,south=output,east=input,west=none": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-1",
+      "y": -90
+    },
+    "north=none,south=input,east=output,west=none": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-1mirror"
+    },
+
+
+    "north=output,south=input,east=input,west=none": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-2"
+    },
+    "north=none,south=input,east=output,west=input": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-2",
+      "y": 90
+    },
+    "north=input,south=output,east=none,west=input": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-2",
+      "y": 180
+    },
+    "north=input,south=none,east=input,west=output": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-2",
+      "y": 270
+    },
+    "north=input,south=output,east=input,west=none": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-2mirror"
+    },
+    "north=none,south=input,east=input,west=output": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-2mirror",
+      "y": 90
+    },
+    "north=output,south=input,east=none,west=input": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-2mirror",
+      "y": 180
+    },
+    "north=input,south=none,east=output,west=input": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-2mirror",
       "y": 270
     },
 
-    "shape=n_w": {
-      "model": "mindustry:block/distribution/conveyors/conveyor-1"
+
+    "north=output,south=input,east=input,west=input": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-3"
     },
-    "shape=n_e": {
-      "model": "mindustry:block/distribution/conveyors/conveyor-1mirror"
-    },
-    "shape=s_w": {
-      "model": "mindustry:block/distribution/conveyors/conveyor-1mirror",
-      "y": 180
-    },
-    "shape=s_e": {
-      "model": "mindustry:block/distribution/conveyors/conveyor-1",
-      "y": 180
-    },
-    "shape=w_s": {
-      "model": "mindustry:block/distribution/conveyors/conveyor-1",
-      "y": 270
-    },
-    "shape=w_n": {
-      "model": "mindustry:block/distribution/conveyors/conveyor-1mirror",
-      "y": 270
-    },
-    "shape=e_s": {
-      "model": "mindustry:block/distribution/conveyors/conveyor-1mirror",
+    "north=input,south=input,east=output,west=input": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-3",
       "y": 90
     },
-    "shape=e_n": {
-      "model": "mindustry:block/distribution/conveyors/conveyor-1",
+    "north=input,south=output,east=input,west=input": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-3",
+      "y": 180
+    },
+    "north=input,south=input,east=input,west=output": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-3",
+      "y": 270
+    },
+
+
+    "north=output,south=none,east=input,west=input": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-4"
+    },
+    "north=input,south=input,east=output,west=none": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-4",
       "y": 90
+    },
+    "north=none,south=output,east=input,west=input": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-4",
+      "y": 180
+    },
+    "north=input,south=input,east=none,west=output": {
+      "model": "mindustry:block/distribution/conveyors/conveyor-4",
+      "y": 270
     }
   }
 }
