@@ -1,20 +1,31 @@
 package me.thecode.mindustry.blocks;
 
+import me.thecode.mindustry.ConveyorItem;
 import me.thecode.mindustry.ConveyorSideType;
+import me.thecode.mindustry.blocks.block_entities.ConveyorBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
@@ -23,7 +34,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ConveyorBlock extends Block {
+public class ConveyorBlock extends BaseEntityBlock {
     public static final EnumProperty<ConveyorSideType> NORTH = EnumProperty.create("north", ConveyorSideType.class);;
     public static final EnumProperty<ConveyorSideType> SOUTH = EnumProperty.create("south", ConveyorSideType.class);;
     public static final EnumProperty<ConveyorSideType> EAST = EnumProperty.create("east", ConveyorSideType.class);;
@@ -36,6 +47,7 @@ public class ConveyorBlock extends Block {
         registerDefaultState(defaultBlockState().setValue(EAST, ConveyorSideType.NONE));
         registerDefaultState(defaultBlockState().setValue(WEST, ConveyorSideType.NONE));
     }
+
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(NORTH);
@@ -111,7 +123,7 @@ public class ConveyorBlock extends Block {
         }
         level.setBlock(pos, newBlockState, 3);
     }
-    private static EnumProperty<ConveyorSideType> getConveyorSidePropertyByDirection(Direction direction) {
+    public static EnumProperty<ConveyorSideType> getConveyorSidePropertyByDirection(Direction direction) {
         switch (direction) {
             case NORTH -> {
                 return NORTH;
@@ -128,7 +140,7 @@ public class ConveyorBlock extends Block {
         }
         return null;
     }
-    private List<Direction> getSides(BlockState blockState, ConveyorSideType sideType) {
+    public static List<Direction> getSides(BlockState blockState, ConveyorSideType sideType) {
         List<Direction> sides = new ArrayList<>();
         List<Direction> horizontalDirections = new ArrayList<>(Arrays.asList(Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST));
         for(Direction direction : horizontalDirections) {
@@ -139,12 +151,12 @@ public class ConveyorBlock extends Block {
         }
         return sides;
     }
-    private List<Direction> getConnectedSides(BlockState blockState, BlockPos pos, Level level, ConveyorSideType sideType) {
+    public static List<Direction> getConnectedSides(BlockState blockState, BlockPos pos, Level level, ConveyorSideType sideType) {
         List<Direction> allSides = getSides(blockState, sideType);
         List<Direction> connectedSides = new ArrayList<>();
         for(Direction direction : allSides) {
             BlockState neighborBlockState = level.getBlockState(pos.relative(direction));
-            if(!neighborBlockState.is(this)) {
+            if(!neighborBlockState.is(ModBlocks.CONVEYOR.get())) {
                 continue;
             }
             if(neighborBlockState.getValue(getConveyorSidePropertyByDirection(direction.getOpposite())).equals(sideType.equals(ConveyorSideType.OUTPUT) ? ConveyorSideType.INPUT : ConveyorSideType.OUTPUT)) {
@@ -152,5 +164,45 @@ public class ConveyorBlock extends Block {
             }
         }
         return connectedSides;
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+        return new ConveyorBlockEntity(pPos, pState);
+    }
+
+    @Override
+    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        ConveyorBlockEntity blockEntity = (ConveyorBlockEntity)pLevel.getBlockEntity(pPos);
+        if(pPlayer.getItemInHand(pHand).isEmpty()) {
+            List<ConveyorItem> conveyorItems = blockEntity.getConveyorItems();
+            if(conveyorItems != null) {
+                for(int i = conveyorItems.size()-1; i >= 0; i--) {
+                    int slot = pPlayer.getInventory().findSlotMatchingItem(conveyorItems.get(i).itemStack.copy());
+                    if(
+                            (slot != -1 && pPlayer.getInventory().getItem(slot).getCount() < conveyorItems.get(i).itemStack.getItem().getMaxStackSize()) ||
+                            pPlayer.getInventory().getFreeSlot() != -1
+                    ) {
+                        pPlayer.addItem(conveyorItems.get(i).itemStack.copy());
+
+                        blockEntity.removeConveyorItem(i);
+                    }
+                }
+            }
+        }
+        else {
+            blockEntity.addItem(pPlayer.getItemInHand(pHand));
+        }
+        return InteractionResult.SUCCESS;
+    }
+    public RenderShape getRenderShape(BlockState pState) {
+        return RenderShape.MODEL;
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+        return createTickerHelper(pBlockEntityType, ModBlocks.CONVEYOR_BLOCK_ENTITY.get(), ConveyorBlockEntity::tick);
     }
 }
